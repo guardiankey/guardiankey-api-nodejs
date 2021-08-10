@@ -20,7 +20,12 @@ login_failed = 0; // 0 if pass match; 1 if login failed
 user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.146 Safari/537.36";
 
 (async() => {
-  let gk_return = await gk.check_access(client_ip,user_agent,username,useremail,login_failed)
+  let gk_return = {}
+  try { // Good practice: Always use it inside a try-catch!
+    gk_return = await gk.check_access(client_ip,user_agent,username,useremail,login_failed)
+  }catch(e){
+    gk_return = {"response": "ERROR"}
+  }
   console.log(gk_return['response'])
 })();
 
